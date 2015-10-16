@@ -13,6 +13,14 @@
           templateUrl: '/templates/books/index.html',
           controller: 'BooksIndexCtrl'
         })
+        .when('/books/new', {
+          templateUrl: '/templates/books/new.html',
+          /* if no controller given here, does it inherit from parent route?
+             -> $scope.newBook binds ok
+             -> BUT, $scope.addBook() won't execute unless
+                controller is specified */
+          controller: 'NewBookCtrl'
+        })
         .when('/books/:id', {
           templateUrl: '/templates/books/show.html',
           controller: 'ResourceController'
@@ -27,11 +35,33 @@
         });
     }])
 
-    .controller('BooksIndexCtrl', ['$scope', 'Book', function ($scope, Book) {
+    .controller('BooksIndexCtrl', ['$scope', '$location', 'Book', function ($scope, $location, Book) {
 
-      $scope.books = Book.query(function (data) {
+      $scope.books = [];
+
+      Book.query(function (data) {
         $scope.books = data;
       });
+
+
+
+    }])
+
+    .controller('NewBookCtrl', ['$scope', '$location', 'Book',
+        function ($scope, $location, Book) {
+
+      $scope.newBook = {};
+
+      // $scope.addBook = function () {
+      //   $scope.books.push($scope.newBook);
+      //   console.log($scope.books);
+      //   $scope.newBook = {};
+      //   $location.path('/books');
+      // };
+
+      $scope.routeChange = function () {
+        $location.path('/books/new');
+      };
 
     }])
 

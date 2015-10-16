@@ -1,9 +1,38 @@
-<h3>Book Index</h3>
+<br>
+<div class='row'>
 
-<ul>
+  <div class='col-md-2'>
+    <h3>Book Index</h3>
+  </div>
+
+  <div class='col-md-2'>
+    <form ng-submit="newBookForm()" style="margin-top:18px">
+      <button class='btn btn-default'>Add a Book</button>
+    </form>
+  </div>
+
+</div>
+
+<hr>
+
+<ul class='list-unstyled'>
   <li ng-repeat='book in books'>
-    <a ng-href="/books/{{ book.id }}">
-      {{ book.title }}
-    </a>
+    <div class='row'>
+
+      <div class='col-md-2'>
+        <img ng-src="{{ book.image }}" style="height:150px" alt="{{ book.title }}">
+      </div>
+
+      <div class='col-md-3'>
+        <a ng-href="/books/{{ book.id }}">
+          {{ book.title }}
+        </a> <br>
+        by {{ book.author }} <br>
+        Release Date: {{ book.release_date }}
+      </div>
+
+    </div><br>
   </li>
 </ul>
+
+{{ books[9] }}
