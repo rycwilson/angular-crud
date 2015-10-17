@@ -33,10 +33,15 @@
   <label for="book-release-date" class="col-sm-3 control-label">
     Release Date
   </label>
-  <div class="col-sm-9">
+  <div class="col-sm-9" ng-if="!book.release_date_year">
     <input type="date" class="form-control" id="book-release-date"
         ng-model="book.release_date" placeholder="release date">
   </div>
+  <div class="col-sm-9" ng-if="book.release_date_year">
+    <input type="text" class="form-control" id="book-release-date"
+        ng-model="book.release_date_year" placeholder="release date">
+  </div>
+
 </div>
 
 <div class="form-group">

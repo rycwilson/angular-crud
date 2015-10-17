@@ -37,8 +37,8 @@ angular.module('bookApp.controllers', [])
   .controller('ShowBookCtrl', ['$scope', '$stateParams', 'Book',
       function ($scope, $stateParams, Book) {
 
-    $scope.book = Book.get({ id: parseInt($stateParams.id) }, function () {
-      console.log(typeof($scope.book.id));
+    $scope.book = Book.get({ id: parseInt($stateParams.id, 10) }, function () {
+      // console.log($scope.book);
     });
 
   }])
@@ -47,19 +47,30 @@ angular.module('bookApp.controllers', [])
   .controller('EditBookCtrl', ['$scope', '$state', '$stateParams', 'Book',
       function ($scope, $state, $stateParams, Book) {
 
-    $scope.book = Book.get({ id: parseInt($stateParams.id) });
+    Book.get({ id: parseInt($stateParams.id, 10) },
+      // the date will come as a string, either the year
+      //   by itself or month/day/year
+      // if year, will populate a text input field
+      // if month/day/year, will populate a date field
+      function (data) {
+        var book = data;
+        // check if the date is represented by year only,
+        // if so assign to book.release_date_year
+        var year = parseInt(book.release_date, 10);
+        if (Number(year) === year && year % 1 === 0) {
+          book.release_date_year = year.toString();
+        }
+        else {
+          book.release_date = new Date (book.release_date);
+        }
+        $scope.book = book;
+      }
+    );
 
     $scope.updateBook = function () {
       $scope.book.$update(function () {
         $state.go('books');
       });
     };
-
-    // $scope.loadBook = function () {
-    //   //Issues a GET request to /api/movies/:id to get a movie to update
-    //   $scope.book = Book.get({ id: $stateParams.id });
-    // };
-
-    // $scope.loadBook(); // Load a movie which can be edited on UI
 
   }]);
