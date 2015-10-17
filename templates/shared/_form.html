@@ -33,6 +33,7 @@
   <label for="book-release-date" class="col-sm-3 control-label">
     Release Date
   </label>
+  <!-- use ng-if to insert the appropriate input into the DOM -->
   <div class="col-sm-9" ng-if="!book.release_date_year">
     <input type="date" class="form-control" id="book-release-date"
         ng-model="book.release_date" placeholder="release date">
@@ -41,12 +42,11 @@
     <input type="text" class="form-control" id="book-release-date"
         ng-model="book.release_date_year" placeholder="release date">
   </div>
-
-</div>
+</div><br>
 
 <div class="form-group">
   <div class="col-sm-offset-3 col-sm-9 text-right">
-    <button type="submit" class="btn btn-primary">Add Book</button>
+    <button type="submit" class="btn btn-primary">{{ submitText }}</button>
   </div>
 </div>
 

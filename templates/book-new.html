@@ -3,12 +3,13 @@
 
   <div class='row'>
     <div class='col-md-3 text-right'>
-      <h3>New Book</h3>
+      <h3>New Book</h3><br>
     </div>
   </div>
 
   <form class="form-horizontal" role="form" ng-submit="addBook()">
-    <div ng-include="'templates/shared/_form.html'"></div>
+    <div ng-include="'templates/shared/_form.html'"
+         ng-init ="submitText='Add Book'"></div>
   </form>
 
 </div>
