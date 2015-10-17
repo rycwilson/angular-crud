@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app='BookApp'>
+<html lang="en" ng-app='bookApp'>
 <head>
   <meta charset="UTF-8">
   <title>Books API</title>
@@ -7,12 +7,14 @@
   <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css">
   <script src="/bower_components/angular/angular.js"></script>
   <script src="/bower_components/angular-resource/angular-resource.js"></script>
-  <script src="/bower_components/angular-route/angular-route.js"></script>
-  <script src="app.js"></script>
+  <script src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src="js/controllers.js"></script>
+  <script src="js/services.js"></script>
+  <script src="js/app.js"></script>
 </head>
 <body class='container'>
 
-  <div class='home-view' ng-view></div>
+  <div class='home-view' ui-view></div>
 
 </body>
 </html>

@@ -1,0 +1,47 @@
+
+<div class="form-group">
+  <label for="book-title" class="col-sm-3 control-label">
+    Title
+  </label>
+  <div class="col-sm-9">
+    <input type="text" class="form-control" id="book-title"
+        ng-model="book.title" placeholder="title">
+  </div>
+</div>
+
+<div class="form-group">
+  <label for="book-author" class="col-sm-3 control-label">
+    Author
+  </label>
+  <div class="col-sm-9">
+    <input type="text" class="form-control" id="book-author"
+        ng-model="book.author" placeholder="author">
+  </div>
+</div>
+
+<div class="form-group">
+  <label for="book-image" class="col-sm-3 control-label">
+    Image URL
+  </label>
+  <div class="col-sm-9">
+    <input type="url" class="form-control" id="book-image"
+      ng-model="book.image" placeholder="image url">
+  </div>
+</div>
+
+<div class="form-group">
+  <label for="book-release-date" class="col-sm-3 control-label">
+    Release Date
+  </label>
+  <div class="col-sm-9">
+    <input type="date" class="form-control" id="book-release-date"
+        ng-model="book.release_date" placeholder="release date">
+  </div>
+</div>
+
+<div class="form-group">
+  <div class="col-sm-offset-3 col-sm-9 text-right">
+    <button type="submit" class="btn btn-primary">Add Book</button>
+  </div>
+</div>
+

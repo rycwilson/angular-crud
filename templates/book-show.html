@@ -1,0 +1,28 @@
+<br><br>
+<div class='well col-md-8'>
+
+  <div class='col-md-4'>
+
+    <img ng-src="{{ book.image }}" style="height:300px" alt="{{ book.title }}">
+
+  </div>
+
+  <div class='col-md-4'>
+
+    <h3>{{ book.title }}</h3>
+    <strong>Author: </strong> {{ book.author }} <br>
+    <strong>Release Date: </strong> {{ book.release_date }} <br><br>
+    <!--  notice the difference here in the editBook parameter,
+    between this template and books-index.html
+    below works because book is defined on the scope,
+    but in books-index.html, an expression is needed because
+    book is coming from the ng-repeat block -->
+    <a class='btn btn-primary' ui-sref="editBook({ id: book.id })">
+      Edit
+    </a>
+
+  </div>
+
+</div>
+
+

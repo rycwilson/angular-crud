@@ -2,18 +2,16 @@
 <div class='row'>
 
   <div class='col-md-2'>
-    <h3>Book Index</h3>
+    <h3>Books Index</h3>
   </div>
 
   <div class='col-md-2'>
-    <form ng-submit="newBookForm()" style="margin-top:18px">
-      <button class='btn btn-default'>Add a Book</button>
-    </form>
+    <a ui-sref="newBook">
+      Add a Book
+    </a>
   </div>
 
-</div>
-
-<hr>
+</div><hr>
 
 <ul class='list-unstyled'>
   <li ng-repeat='book in books'>
@@ -24,15 +22,22 @@
       </div>
 
       <div class='col-md-3'>
-        <a ng-href="/books/{{ book.id }}">
+
+        <a ui-sref="showBook({ id: {{ book.id }} })">
           {{ book.title }}
         </a> <br>
+
         by {{ book.author }} <br>
-        Release Date: {{ book.release_date }}
+
+        Release Date: {{ book.release_date }} <br>
+
+        <a class="btn btn-danger" ng-click="deleteBook(book)">
+          Delete
+        </a>
+
       </div>
 
     </div><br>
   </li>
 </ul>
 
-{{ books[9] }}
