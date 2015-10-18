@@ -14,7 +14,8 @@ angular.module('bookApp.services', [])
         { id: '@id' },
         // here we add custom methods to the resource class
         // invoke this method as $update (as above)
-        { update: { method: 'PUT' } }
+        { update: { method: 'PUT' },
+          delete: { method: 'DELETE' } }
     );
   }]);
 

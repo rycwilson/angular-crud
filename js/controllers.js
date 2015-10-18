@@ -7,16 +7,16 @@ angular.module('bookApp.controllers', [])
 
     // returns a promise that will bind to view as soon as available
     $scope.books = Book.query(function (data) {
-      // console.log(data)
+      // console.log(data);
     });
 
-    $scope.deleteBook = function (book) {
-      // if (popupService.showPopup('Are you sure?')) {
-        book.$delete(function () {
-          //redirect
-          $state.go('books');
+    $scope.deleteBook = function (index) {
+      if ($window.confirm('Are you sure?')) {
+        $scope.books[index].$delete(function () {
+          // delete locally
+          $scope.books.splice(index,1);
         });
-      // }
+      }
     };
   }])
 
@@ -25,7 +25,7 @@ angular.module('bookApp.controllers', [])
       function ($scope, $state, $filter, $stateParams, Book) {
 
     // $scope.book (bound to the form) has release_date as date type
-    // $scope.newBook converts it to string
+    // $scope.newBook converts it to string for POSTing
     $scope.book = {};
     $scope.newBook = new Book();
 
