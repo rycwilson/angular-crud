@@ -24,7 +24,8 @@ angular.module('bookApp.controllers', [])
   .controller('NewBookCtrl', ['$scope', '$state', '$filter', '$stateParams', 'Book',
       function ($scope, $state, $filter, $stateParams, Book) {
 
-    // distinguish the existing book from the new one
+    // $scope.book (bound to the form) has release_date as date type
+    // $scope.newBook converts it to string
     $scope.book = {};
     $scope.newBook = new Book();
 
@@ -34,8 +35,7 @@ angular.module('bookApp.controllers', [])
       $scope.newBook.image = $scope.book.image;
       // convert date to string
       $scope.newBook.release_date =
-        $filter('date')($scope.book.release_date, 'longDate');
-      console.log($scope.newBook);
+        $filter('date')($scope.book.release_date_as_date, 'longDate');
       $scope.newBook.$save(function () {
         $state.go('books');
       });

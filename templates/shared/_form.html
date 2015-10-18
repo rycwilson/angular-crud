@@ -33,12 +33,15 @@
   <label for="book-release-date" class="col-sm-3 control-label">
     Release Date
   </label>
-  <!-- use ng-if to insert the appropriate input into the DOM -->
-  <div class="col-sm-9" ng-if="book.release_date_as_date">
+  <!-- insert a date input if adding a new book or updating a book
+  that has release_date in the form of month/day/year -->
+  <div class="col-sm-9" ng-if="newBook || book.release_date_as_date">
     <input type="date" class="form-control" id="book-release-date"
         ng-model="book.release_date_as_date" placeholder="release date">
   </div>
-  <div class="col-sm-9" ng-if="!book.release_date_as_date">
+  <!-- insert a text input if updating a book that has release_date
+  as year only -->
+  <div class="col-sm-9" ng-if="!newBook && !book.release_date_as_date">
     <input type="text" class="form-control" id="book-release-date"
         ng-model="book.release_date" placeholder="release date">
   </div>
