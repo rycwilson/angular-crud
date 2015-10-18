@@ -12,22 +12,31 @@ angular.module('bookApp.controllers', [])
 
     $scope.deleteBook = function (book) {
       // if (popupService.showPopup('Are you sure?')) {
-        movie.$delete(function () {
+        book.$delete(function () {
           //redirect
-          $window.location.href = '/books';
+          $state.go('books');
         });
       // }
     };
   }])
 
   // New
-  .controller('NewBookCtrl', ['$scope', '$state', '$stateParams', 'Book',
-      function ($scope, $state, $stateParams, Book) {
+  .controller('NewBookCtrl', ['$scope', '$state', '$filter', '$stateParams', 'Book',
+      function ($scope, $state, $filter, $stateParams, Book) {
 
-    $scope.book = new Book();
+    // distinguish the existing book from the new one
+    $scope.book = {};
+    $scope.newBook = new Book();
 
     $scope.addBook = function () {
-      $scope.book.$save(function () {
+      $scope.newBook.author = $scope.book.author;
+      $scope.newBook.title = $scope.book.title;
+      $scope.newBook.image = $scope.book.image;
+      // convert date to string
+      $scope.newBook.release_date =
+        $filter('date')($scope.book.release_date, 'longDate');
+      console.log($scope.newBook);
+      $scope.newBook.$save(function () {
         $state.go('books');
       });
     };
@@ -44,30 +53,46 @@ angular.module('bookApp.controllers', [])
   }])
 
   /// Edit
-  .controller('EditBookCtrl', ['$scope', '$state', '$stateParams', 'Book',
-      function ($scope, $state, $stateParams, Book) {
+  .controller('EditBookCtrl', ['$scope', '$state', '$filter', '$stateParams',
+      'Book', function ($scope, $state, $filter, $stateParams, Book) {
+
+    // the resource (book) data has to go through a buffer before it's
+    // assigned to $scope.book. See below...
+    $scope.book = {};
 
     Book.get({ id: parseInt($stateParams.id, 10) },
-      // the date will come as a string, either the year
-      //   by itself or month/day/year
-      // if year, will populate a text input field
-      // if month/day/year, will populate a date field
       function (data) {
+        // need to store everything in a buffer (book), so we can
+        // determine which fields to display (date as string or as date)
+        // before assigning to $scope.book
         var book = data;
-        // check if the date is represented by year only,
-        // if so assign to book.release_date_year
-        var year = parseInt(book.release_date, 10);
+        // data.release_date will come as a string, either the year
+        // by itself or month/day/year
+        // if year, insert and populate a text input field
+        // if month/day/year, insert and populate a date field
+        // (see _form.html)
+        var year = parseInt(data.release_date, 10);
         if (Number(year) === year && year % 1 === 0) {
-          book.release_date_year = year.toString();
+          // release_date is a year -> string
+          book.release_date = year.toString();
         }
         else {
-          book.release_date = new Date (book.release_date);
+          // release_date is full date,
+          // so give $scope.book a date type field
+          book.release_date_as_date = new Date (data.release_date);
         }
         $scope.book = book;
       }
     );
 
     $scope.updateBook = function () {
+      if ($scope.book.release_date_as_date) {
+        // need to convert from date type to string
+        $scope.book.release_date =
+          $filter('date')($scope.book.release_date_as_date, 'longDate');
+        // will presence of release_date_as_date cause a problem for PUT?
+        // => no, it won't
+      }
       $scope.book.$update(function () {
         $state.go('books');
       });

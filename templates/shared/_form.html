@@ -34,13 +34,13 @@
     Release Date
   </label>
   <!-- use ng-if to insert the appropriate input into the DOM -->
-  <div class="col-sm-9" ng-if="!book.release_date_year">
+  <div class="col-sm-9" ng-if="book.release_date_as_date">
     <input type="date" class="form-control" id="book-release-date"
-        ng-model="book.release_date" placeholder="release date">
+        ng-model="book.release_date_as_date" placeholder="release date">
   </div>
-  <div class="col-sm-9" ng-if="book.release_date_year">
+  <div class="col-sm-9" ng-if="!book.release_date_as_date">
     <input type="text" class="form-control" id="book-release-date"
-        ng-model="book.release_date_year" placeholder="release date">
+        ng-model="book.release_date" placeholder="release date">
   </div>
 </div><br>
 
